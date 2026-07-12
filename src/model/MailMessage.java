@@ -9,12 +9,7 @@ public class MailMessage {
     private LocalDateTime date;
     private boolean fromMe;
 
-    public MailMessage(String sender,
-                       String subject,
-                       String body,
-                       LocalDateTime date,
-                       boolean fromMe) {
-
+    public MailMessage(String sender, String subject, String body, LocalDateTime date, boolean fromMe) {
         this.sender = sender;
         this.subject = subject;
         this.body = body;
