@@ -3,30 +3,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.MailMessage;
+import model.MailThread;
+import view.ChatWindow;
 
 public class Main {
 	public static void main(String[] args) {
 		List<MailMessage> messages = new ArrayList<>();
-
-        messages.add(new MailMessage(
-                "採用担当",
-                "面接について",
-                "こんにちは。面接日程をご案内します。",
-                LocalDateTime.now(),
-                false));
-
-        messages.add(new MailMessage(
-                "自分",
-                "Re: 面接について",
-                "ありがとうございます。よろしくお願いいたします。",
-                LocalDateTime.now(),
-                true));
-
-        for (MailMessage mail : messages) {
-            System.out.println("-------------------------");
-            System.out.println(mail.getSender());
-            System.out.println(mail.getDate());
-            System.out.println(mail.getBody());
+		
+		//参加者を作る
+		List<String> participants = new ArrayList<>();
+		participants.add("採用担当");
+		participants.add("自分");
+		
+		//MailThreadを作る
+		MailThread thread = new MailThread("面接について",participants);
+        
+		//MailMessageを３つ作る
+		MailMessage mail1 = new MailMessage(
+				"採用担当",
+				"面接について",
+				"こんにちは",
+				LocalDateTime.now(),
+				false
+			);
+		MailMessage mail2 = new MailMessage( 
+				"自分",
+				"面接について",
+				"ありがとうございます。",
+				LocalDateTime.now(),
+				true
+			);
+		MailMessage mail3 = new MailMessage(
+				"採用担当",
+				"面接について",
+				"7/20の13時からお願いします。",
+				LocalDateTime.now(),
+				false
+			);
+		
+		//threadに追加
+		thread.addMessage(mail1);
+		thread.addMessage(mail2);
+		thread.addMessage(mail3);
+		
+		//表示
+		ChatWindow chatwindow = new ChatWindow(thread);
+		
+		System.out.println("件名：" + thread.getSubject());
+		System.out.println();
+		
+        for (MailMessage mail : thread.getMessages()) {
+        	if(mail.isFromMe()) {
+        		System.out.println(" " + mail.getSender());
+        		System.out.println(" " + mail.getBody());
+        	}
+        	else {
+        		System.out.println(mail.getSender());
+        		System.out.println(mail.getBody());
+        	}
+        	System.out.println("-------------------------");
         }
     }
 }
