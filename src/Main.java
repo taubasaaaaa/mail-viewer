@@ -47,21 +47,6 @@ public class Main {
 		thread.addMessage(mail3);
 		
 		//表示
-		ChatWindow chatwindow = new ChatWindow(thread);
-		
-		System.out.println("件名：" + thread.getSubject());
-		System.out.println();
-		
-        for (MailMessage mail : thread.getMessages()) {
-        	if(mail.isFromMe()) {
-        		System.out.println(" " + mail.getSender());
-        		System.out.println(" " + mail.getBody());
-        	}
-        	else {
-        		System.out.println(mail.getSender());
-        		System.out.println(mail.getBody());
-        	}
-        	System.out.println("-------------------------");
-        }
+		new ChatWindow(thread);
     }
 }
