@@ -1,5 +1,6 @@
 package view;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.BoxLayout;
@@ -28,8 +29,16 @@ public class ChatWindow extends JFrame {
 		messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
 		
 		for(MailMessage mail : thread.getMessages()) {
-			JLabel label = new JLabel(mail.getBody());
-			messagePanel.add(label);
+			MessageBubble bubble = new MessageBubble(mail);
+			JPanel rowPanel = new JPanel();
+			if(mail.isFromMe()) {
+				rowPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			}
+			else {
+				rowPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			}
+			rowPanel.add(bubble);
+			messagePanel.add(rowPanel);
 		}
 		
 		//スクロール対応化
